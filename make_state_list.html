@@ -1,0 +1,32 @@
+<!doctype html>
+<head>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="papaparse.min.js"></script>
+    <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
+    <script src="dbinteraction.js"></script>
+</head>
+<body>
+<script>
+    var data;
+    function handleFileSelect(evt){
+        var file = evt.target.files[0];
+        Papa.parse(file, {
+            header:true,
+            skipEmptyLines:true,
+            complete: function(results){
+                //Uncomment if shit goes down : db.collection('legislators').deleteMany({});
+                data = results;
+                db.collection('states').insertMany(data);
+                console.log(db.collection('states'));
+            }
+        });
+    }
+    $(document).ready(function(){
+        $("#csv-file").change(handleFileSelect);
+    });
+    db.collection('states').find({}).execute().then(doc => {
+        console.log(doc);
+    });
+</script>
+<input type="file" id="csv-file" name="files"/>
+</body>
