@@ -60,53 +60,52 @@ function getBills() {
 }
 
 function billUpVote(bill) {
-    let newbill;
     db.collection('bills').find({bill_name : bill}).execute().then(doc => {
-        console.log(newbill);
-        console.log(bill);
-        doc.map(c => {
-            newbill = {
-                bill_name : c.bill_name,
-                downvotes : c.downvotes,
-                link : c.link,
-                upvotes : (c.upvotes + 1)
-            }
-            console.log(newbill);
-        });
-        db.collection('bills').deleteOne({bill_name : bill});
-        db.collection('bills').insertOne(newbill);
-    }).catch(e => {
-        console.log("Error : " + e);
+        var newup = doc[0].upvotes;
+        newup = newup || 0; //Prevents newup from being NaN (falsey)
+        newup = newup + 1;
+        db.collection('bills').updateOne(
+            {bill_name : bill},
+            {$set : {upvotes : newup}}
+        );
     });
+   db.collection('bills').find({}).sort({bill_name : -1}).execute().then(docs => {
+        refreshBillboard(docs);
+   });
 }
 
 function billDownVote(bill) {
-    let newbill;
     db.collection('bills').find({bill_name : bill}).execute().then(doc => {
-        console.log(newbill);
-        console.log(bill);
-        doc.map(c => {
-            newbill = {
-                bill_name : c.bill_name,
-                downvotes : (c.downvotes + 1),
-                link : c.link,
-                upvotes : c.upvotes
-            }
-            console.log(newbill);
-        });
-        db.collection('bills').deleteOne({bill_name : bill});
-        db.collection('bills').insertOne(newbill);
-        console.log(newbill);
-    }).catch(e => {
-        console.log("Error : " + e);
+        var newdown = doc[0].downvotes;
+        newdown = newdown || 0; //Prevents newup from being NaN (falsey)
+        newdown = newdown + 1;
+        db.collection('bills').updateOne(
+            {bill_name : bill},
+            {$set : {downvotes : newdown}}
+        );
     });
+   db.collection('bills').find({}).sort({bill_name : -1}).execute().then(docs => {
+        refreshBillboard(docs);
+   });
 }
 
 function getNumUpvotes(bill) {
-    return 55;
+    return db.collection('bills').find({bill_name : bill}).execute().then(doc => {
+        let upvotes = 0;
+        doc.map(c => {
+            upvotes = c.upvotes;
+        });
+        return upvotes;
+    });
 }
 function getNumDownvotes(bill) {
-    return 25;
+    return db.collection('bills').find({bill_name : bill}).execute().then(doc => {
+        let downvotes = 0;
+        doc.map(c => {
+            downvotes = c.downvotes;
+        });
+        return downvotes;
+    });
 }
 
 function addComment() {
