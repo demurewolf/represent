@@ -57,3 +57,18 @@ function getBills() {
       });
     */
 }
+
+function billUpVote(bill) {
+    window.alert("you upvoted " + bill);
+}
+
+function billDownVote(bill) {
+    window.alert("you downvoted " + bill);
+}
+
+function getNumUpvotes(bill) {
+    return 55;
+}
+function getNumDownvotes(bill) {
+    return 25;
+}
