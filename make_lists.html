@@ -1,0 +1,39 @@
+<!doctype html>
+<head> hello </head>
+<body>
+    <script src="node_modules/papaparse/papaparse.min.js"></script>
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script>
+        var data;
+        function handleFileSelect(evt){
+          var file = evt.target.files[0];
+          Papa.parse(file, {
+              header:true,
+              complete: function(results){
+                  data = results;
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        $("#csv-file").change(handleFileSelect);
+    });
+    </script>
+<input type="file" id="csv-file" name="files"/>
+</body>
+
+
+
+
+
+
+<!--// var results = Papa.parse('Trial_run/Legislator_data.csv',{-->
+<!--//     header: true,-->
+<!--//     worker: true,-->
+<!--//     step: function(row){-->
+<!--//         console.log("Row:",row.data);-->
+<!--//     },-->
+<!--//     complete: function(){-->
+<!--//         console.log("All Done!")-->
+<!--//     }-->
+<!--// });-->
