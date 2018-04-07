@@ -1,4 +1,4 @@
-const clientPromise = stitch.StitchClientFactory.create("bitcamp2018-qdajj");
+let clientPromise = stitch.StitchClientFactory.create("bitcamp2018-qdajj");
 let client;
 let db;
 clientPromise.then(stitchClient => {
@@ -41,9 +41,6 @@ function setupDB() {
         link : "https://www.govtrack.us/congress/bills/115/hr5410",
         upvotes : 0
     }]);
-    db.collection('bills').find({}).execute().then(docs => {
-        docs.map(c => console.log(c));
-    });
 }
 
 function getBills() {
@@ -56,14 +53,53 @@ function getBills() {
         document.getElementById('comments').innerHTML = html;
       });
     */
+    db.collection('bills').find({}).execute().then(docs => {
+        var html = docs.map(c => '').join('');
+        document.getElementById('').innerHTML = html;
+    });
 }
 
 function billUpVote(bill) {
-    window.alert("you upvoted " + bill);
+    let newbill;
+    db.collection('bills').find({bill_name : bill}).execute().then(doc => {
+        console.log(newbill);
+        console.log(bill);
+        doc.map(c => {
+            newbill = {
+                bill_name : c.bill_name,
+                downvotes : c.downvotes,
+                link : c.link,
+                upvotes : (c.upvotes + 1)
+            }
+            console.log(newbill);
+        });
+        db.collection('bills').deleteOne({bill_name : bill});
+        db.collection('bills').insertOne(newbill);
+    }).catch(e => {
+        console.log("Error : " + e);
+    });
 }
 
 function billDownVote(bill) {
-    window.alert("you downvoted " + bill);
+    let newbill;
+    db.collection('bills').find({bill_name : bill}).execute().then(doc => {
+        console.log(newbill);
+        console.log(bill);
+        doc.map(c => {
+            newbill = {
+                bill_name : c.bill_name,
+                downvotes : (c.downvotes + 1),
+                link : c.link,
+                upvotes : c.upvotes
+            }
+            console.log(newbill);
+        });
+        db.collection('bills').deleteOne({bill_name : bill});
+        db.collection('bills').insertOne(newbill);
+        console.log(newbill);
+    }).catch(e => {
+        console.log("Error : " + e);
+    });
 }
 
 function getNumUpvotes(bill) {
