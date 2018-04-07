@@ -108,3 +108,9 @@ function getNumUpvotes(bill) {
 function getNumDownvotes(bill) {
     return 25;
 }
+
+function addComment() {
+    var c = document.getElementById('new_comment');
+    db.collection('comments').insertOne({owner_id : client.authedId(), comment: c.value}).then(displayComments);
+    c.value = '';
+  }
