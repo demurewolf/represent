@@ -124,7 +124,6 @@ function getStates() {
 function getDistricts(state) {
     return db.collection('legislators').aggregate( [{$match : {State : state}},{$group : {_id :{district : "$district"} }},{$sort : {"_id.district" : 1}}] ).then(docs => {
         var districts = docs;
-        console.log(docs);
         return districts;
     });
     // var districts = db.collection('legislators').find(
