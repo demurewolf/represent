@@ -14,18 +14,17 @@
             header:true,
             skipEmptyLines:true,
             complete: function(results){
-                //Uncomment if shit goes down : db.collection('legislators').deleteMany({});
+                //db.collection('legislators').deleteMany({});
                 data = results;
-                db.collection('legislators').insertMany(data);
-                console.log(db.collection('legislators'));
+                db.collection('legislators').insertMany(data.data);
             }
         });   
     }
     $(document).ready(function(){
         $("#csv-file").change(handleFileSelect);
     });
-    db.collection('legislators').find({}).execute().then(doc => {
-        console.log(doc);
+    db.collection('legislators').find({}).execute().then(docs => {
+        console.log(docs);
     });
     </script>
 <input type="file" id="csv-file" name="files"/>

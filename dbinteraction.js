@@ -112,4 +112,44 @@ function addComment() {
     var c = document.getElementById('new_comment');
     db.collection('comments').insertOne({owner_id : client.authedId(), comment: c.value}).then(displayComments);
     c.value = '';
-  }
+}
+
+function getStates() {
+    return db.collection('legislators').aggregate( [{$group : {_id :{State : "$State"} }},{$sort : {"_id.State" : 1}}] ).then(docs => {
+        var states = docs;
+        return states;
+    });
+}
+
+function getDistricts(state) {
+    return db.collection('legislators').aggregate( [{$match : {State : state}},{$group : {_id :{district : "$district"} }},{$sort : {"_id.district" : 1}}] ).then(docs => {
+        var districts = docs;
+        console.log(docs);
+        return districts;
+    });
+    // var districts = db.collection('legislators').find(
+    //     { state: state },
+    //     { district: 1, _id: 0 }
+    // );
+}
+
+function getSenators(state) {
+    return db.collection('legislators').find({State : state, Title : "Senator"},{}).execute().then(docs => {
+        var senators = docs;
+        return senators;
+    });
+}
+
+function getRepresentatives(state, district) {
+    return db.collection('legislators').find({State : state, Title : "Representative", district : district},{}).execute().then(docs => {
+        var reps = docs;
+        return reps;
+    });
+}
+
+function getAbbreviation(state) {
+    return db.collection('states').find({State : state}, {}).execute().then(doc => {
+        var abbrev = doc[0];
+        return abbrev;
+    });
+}

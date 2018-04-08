@@ -16,7 +16,7 @@
             complete: function(results){
                 //Uncomment if shit goes down : db.collection('legislators').deleteMany({});
                 data = results;
-                db.collection('states').insertMany(data);
+                db.collection('states').insertMany(data.data);
                 console.log(db.collection('states'));
             }
         });

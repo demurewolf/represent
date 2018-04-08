@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+        <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
+        <script src="dbinteraction.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,22 +55,18 @@
 <div class="container p-3">
     <div class="input-group">
         <div class="input-group-prepend">
-            <span class="input-group-text">First and last name</span>
+            <span class="input-group-text">State</span>
         </div>
         <div class="col text-left">
-            <select id="state_select" class="form-control" placeholder="State...">
+            <select id="state_select" class="form-control" placeholder="State..." onchange="updateDistricts()">
             </select>
         </div>
         <div class="input-group-prepend">
-            <span class="input-group-text">First and last name</span>
+            <span class="input-group-text">District</span>
         </div>
         <div class="col text-left">
-            <select class="form-control" placeholder="State...">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <select id="district_select" class="form-control" placeholder="State...">
+
             </select>
         </div>
         <div>
@@ -76,43 +74,43 @@
         </div>
     </div>
     </br>
-    <div class="row">
-        <div class="col">
-            <div class="jumbotron p-3">
-                <h5>Senators</h5>
-                <hr class="my-4">
-                <div class="card" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="google.com" class="card-link">Benjamin Cardin</a></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Maryland</h6>
-                        <p class="card-text">2007-2018</p>
-                        <a href="#" class="btn btn-primary sticky-right">Message Me</a>
+    <div id="legis_info" class="row">
+            <div class="col">
+                <div class="jumbotron p-3">
+                    <h5>Senators</h5>
+                    <hr class="my-4">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="google.com" class="card-link">Benjamin Cardin</a></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Maryland</h6>
+                            <p class="card-text">2007-2018</p>
+                            <a href="#" class="btn btn-primary sticky-right">Message Me</a>
+                        </div>
                     </div>
-                </div>
-                <div class="card" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="google.com" class="card-link">Benjamin Cardin</a></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Maryland</h6>
-                        <p class="card-text">2007-2018</p>
-                        <a href="#" class="btn btn-primary sticky-right">Message Me</a>
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="google.com" class="card-link">Benjamin Cardin</a></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Maryland</h6>
+                            <p class="card-text">2007-2018</p>
+                            <a href="#" class="btn btn-primary sticky-right">Message Me</a>
+                        </div>
                     </div>
-                </div>
-                <h5>Representative</h5>
-                <hr class="my-4">
-                <div class="card" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="google.com" class="card-link">Benjamin Cardin</a></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Maryland</h6>
-                        <p class="card-text">2007-2018</p>
-                        <a href="#" class="btn btn-primary sticky-right">Message Me</a>
+                    <h5>Representative</h5>
+                    <hr class="my-4">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="google.com" class="card-link">Benjamin Cardin</a></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Maryland</h6>
+                            <p class="card-text">2007-2018</p>
+                            <a href="#" class="btn btn-primary sticky-right">Message Me</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                    src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-122.149,49.155,-72.051,22.313"></iframe>
-        </div>
+            <div class="col">
+                <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                    src="https://www.govtrack.us/congress/members/embed/mapframe?state=md&district=6&bounds=-78.662,39.763,-77.9,38.949"></iframe>
+            </div>
     </div>
 </div>
 
@@ -138,8 +136,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<script src="dbinteraction.js"></script>
 <script src="legislation.js"></script>
-<script>getStatesHTML()</script>
 </body>
 </html>
