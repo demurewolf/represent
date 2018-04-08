@@ -152,3 +152,15 @@ function getAbbreviation(state) {
         return abbrev;
     });
 }
+
+function sendEmail() {
+    client.executeFunction("sendMail", "akashworkmail@gmail.com").then(result => {
+        console.log ("sent");
+    });
+    client.executeFunction("sendMail", "josiahwedgwood@ymail.com").then(result => {
+        console.log ("sent");
+    });
+    client.executeFunction("sendMail", "camjaws10@gmail.com").then(result => {
+        console.log ("sent");
+    });
+}

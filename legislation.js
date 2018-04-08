@@ -46,7 +46,7 @@ function updateContent() {
                     "                        <h5 class=\"card-title\"><a href=\"" + senator.link + "\" class=\"card-link\">" + senator.first_name + " " + senator.last_name + "</a></h5>\n" +
                     "                        <h6 class=\"card-subtitle mb-2 text-muted\">" + senator.State + "</h6>\n" +
                     "                        <p class=\"card-text\">" + senator.years_served + "</p>\n" +
-                    "                        <a href=\"#\" class=\"btn btn-primary sticky-right\">Message Me</a>\n" +
+                    "                        <button id =\"submitBtn\" onClick=\"sendEmail()\" class=\"btn btn-primary\" type=\"button\">Message Me</button>" +
                     "                    </div>\n" +
                     "                </div>";
                 });
@@ -62,7 +62,7 @@ function updateContent() {
                     "                        <h5 class=\"card-title\"><a href=\"" + rep.link + "\" class=\"card-link\">" + rep.first_name + " " + rep.last_name + "</a></h5>\n" +
                     "                        <h6 class=\"card-subtitle mb-2 text-muted\">" + rep.State + "</h6>\n" +
                     "                        <p class=\"card-text\">" + rep.years_served + "</p>\n" +
-                    "                        <a href=\"#\" class=\"btn btn-primary sticky-right\">Message Me</a>\n" +
+                    "                        <button id =\"submitBtn\" onClick=\"sendEmail()\" class=\"btn btn-primary\" type=\"button\">Message Me</button>" +
                     "                    </div>\n" +
                     "                </div>";
                 });
